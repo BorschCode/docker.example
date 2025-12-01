@@ -37,10 +37,28 @@
 
 ## Access Points
 
-- **Web Application:** http://10.100.10.10 (or configured NGINX_IP)
-- **RabbitMQ Management:** Port 15236 (if override configured)
-- **Database:** Port 3939 (if override configured)
-- **MailHog:** Port 8413 (if override configured)
+- **Web Application:** http://10.100.10.10
+- **MailHog Web UI:** http://10.100.10.3:8025
+- **RabbitMQ Management:** http://10.100.10.4:15672 (admin/admin)
+- **Database:** 10.100.10.2:3306
+
+**With Port Override (docker-compose.override.yml):**
+- **RabbitMQ Management:** http://localhost:15236
+- **Database:** localhost:3939
+- **MailHog:** http://localhost:8413
+
+## Discover Container IPs
+
+```bash
+# Show all container IPs
+docker compose ps --format "table {{.Name}}\t{{.Status}}\t{{.Ports}}"
+
+# Inspect network to see IP assignments
+docker network inspect dockerexample_default
+
+# Get specific container IP
+docker inspect example_app_nginx --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
+```
 
 ## Project Structure
 
